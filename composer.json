@@ -1,0 +1,14 @@
+{
+  "require": {
+    "propel/propel": "~2.0@dev",
+    "monolog/monolog": "^1.21",
+    "php": ">=5.4.45"
+  },
+  "autoload": {
+    "classmap": ["generated-classes/"],
+    "psr-4": {
+      "backendless\\": "backendless/src"
+    }
+  },
+  "minimum-stability": "dev"
+}
