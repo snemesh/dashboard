@@ -4,16 +4,21 @@
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="project" type="varchar" size="255" required="false" phpName="Project"/>
         <column name="nonbil" type="varchar" size="24" required="false" phpName="NonBil"/>
-        <column name="assignee" type="double" required="false" phpName="Assignee"/>
+        <column name="assignee" type="varchar" size="255" required="false" phpName="Assignee"/>
         <column name="estimated" type="double" required="false" phpName="Estimated"/>
         <column name="spenttime" type="double" required="false" phpName="SpentTime"/>
-        <column name="data" type="TIMESTAMP" required="false" phpName="Data"/>
+        <column name="day" type="integer" required="false" phpName="Day"/>
+        <column name="month" type="integer" required="false" phpName="Month"/>
+        <column name="year" type="integer" required="false" phpName="Year"/>
     </table>
     <table name="myassignee" phpName="myAssignee">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="assigneename" type="varchar" size="128" required="false" phpName="assigneeName"/>
         <column name="salary" type="double" required="false"/>
         <column name="hourlyrate" type="double"  required="false" phpName="hourlyRate"/>
+        <column name="group" type="varchar" size="128" required="false" phpName="Group"/>
+        <column name="spented" type="double" required="false" Spented="Group"/>
+
     </table>
     <table name="mykpitable" phpName="myKpiTable">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
@@ -25,5 +30,24 @@
         <column name="billblspentTime" type="double" required="false" phpName="billblspentTime"/>
         <column name="totalprojects" type="double" required="false" phpName="totalProjects"/>
         <column name="totalpm" type="double" required="false" phpName="totalPM"/>
+    </table>
+    <table name="myprojectdata" phpName="myProjectData">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="budget" type="double" required="false" phpName="Budget"/>
+        <column name="hourlyrate" type="double" required="false" phpName="HourlyRate"/>
+        <column name="hourlybuffer" type="double" required="false" phpName="HourlyBuffer"/>
+        <column name="plannedvalue" type="double" required="false" phpName="PlannedValue"/>
+        <column name="actualcost" type="double" required="false" phpName="ActualCost"/>
+        <column name="earnedvalueforus" type="double" required="false" phpName="EarnedValueForUs"/>
+        <column name="earnedvalueforclient" type="double" required="false" phpName="EarnedValueForClient"/>
+        <column name="earnedvaluevarience" type="double" required="false" phpName="EarnedValueVarience"/>
+        <column name="schedulevariance" type="double" required="false" phpName="ScheduleVariance"/>
+        <column name="costvariance" type="double" required="false" phpName="CostVariance"/>
+        <column name="scheduleperformanceindex" type="double" required="false" phpName="SchedulePerformanceIndex"/>
+        <column name="costperformanceindex" type="double" required="false" phpName="CostPerformanceIndex"/>
+        <column name="estimateatcompletionforclient" type="double" required="false" phpName="EstimateAtCompletionForClient"/>
+        <column name="varianceatcompletionforclient" type="double" required="false" phpName="VarianceAtCompletionForClient"/>
+        <column name="costatcompletionforus" type="double" required="false" phpName="CostAtCompletionForUs"/>
+        <column name="tocompleteperformanceindex" type="double" required="false" phpName="ToCompletePerformanceIndex"/>
     </table>
 </database>

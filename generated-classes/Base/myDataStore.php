@@ -3,7 +3,6 @@
 namespace Base;
 
 use \myDataStoreQuery as ChildmyDataStoreQuery;
-use \DateTime;
 use \Exception;
 use \PDO;
 use Map\myDataStoreTableMap;
@@ -18,7 +17,6 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
-use Propel\Runtime\Util\PropelDateTime;
 
 /**
  * Base class that represents a row from the 'mydatastore' table.
@@ -85,7 +83,7 @@ abstract class myDataStore implements ActiveRecordInterface
     /**
      * The value for the assignee field.
      *
-     * @var        double
+     * @var        string
      */
     protected $assignee;
 
@@ -104,11 +102,25 @@ abstract class myDataStore implements ActiveRecordInterface
     protected $spenttime;
 
     /**
-     * The value for the data field.
+     * The value for the day field.
      *
-     * @var        DateTime
+     * @var        int
      */
-    protected $data;
+    protected $day;
+
+    /**
+     * The value for the month field.
+     *
+     * @var        int
+     */
+    protected $month;
+
+    /**
+     * The value for the year field.
+     *
+     * @var        int
+     */
+    protected $year;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -376,7 +388,7 @@ abstract class myDataStore implements ActiveRecordInterface
     /**
      * Get the [assignee] column value.
      *
-     * @return double
+     * @return string
      */
     public function getAssignee()
     {
@@ -404,23 +416,33 @@ abstract class myDataStore implements ActiveRecordInterface
     }
 
     /**
-     * Get the [optionally formatted] temporal [data] column value.
+     * Get the [day] column value.
      *
-     *
-     * @param      string $format The date/time format string (either date()-style or strftime()-style).
-     *                            If format is NULL, then the raw DateTime object will be returned.
-     *
-     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
-     *
-     * @throws PropelException - if unable to parse/validate the date/time value.
+     * @return int
      */
-    public function getData($format = NULL)
+    public function getDay()
     {
-        if ($format === null) {
-            return $this->data;
-        } else {
-            return $this->data instanceof \DateTimeInterface ? $this->data->format($format) : null;
-        }
+        return $this->day;
+    }
+
+    /**
+     * Get the [month] column value.
+     *
+     * @return int
+     */
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
+    /**
+     * Get the [year] column value.
+     *
+     * @return int
+     */
+    public function getYear()
+    {
+        return $this->year;
     }
 
     /**
@@ -486,13 +508,13 @@ abstract class myDataStore implements ActiveRecordInterface
     /**
      * Set the value of [assignee] column.
      *
-     * @param double $v new value
+     * @param string $v new value
      * @return $this|\myDataStore The current object (for fluent API support)
      */
     public function setAssignee($v)
     {
         if ($v !== null) {
-            $v = (double) $v;
+            $v = (string) $v;
         }
 
         if ($this->assignee !== $v) {
@@ -544,24 +566,64 @@ abstract class myDataStore implements ActiveRecordInterface
     } // setSpentTime()
 
     /**
-     * Sets the value of [data] column to a normalized version of the date/time value specified.
+     * Set the value of [day] column.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     * @param int $v new value
      * @return $this|\myDataStore The current object (for fluent API support)
      */
-    public function setData($v)
+    public function setDay($v)
     {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->data !== null || $dt !== null) {
-            if ($this->data === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->data->format("Y-m-d H:i:s.u")) {
-                $this->data = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[myDataStoreTableMap::COL_DATA] = true;
-            }
-        } // if either are not null
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->day !== $v) {
+            $this->day = $v;
+            $this->modifiedColumns[myDataStoreTableMap::COL_DAY] = true;
+        }
 
         return $this;
-    } // setData()
+    } // setDay()
+
+    /**
+     * Set the value of [month] column.
+     *
+     * @param int $v new value
+     * @return $this|\myDataStore The current object (for fluent API support)
+     */
+    public function setMonth($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->month !== $v) {
+            $this->month = $v;
+            $this->modifiedColumns[myDataStoreTableMap::COL_MONTH] = true;
+        }
+
+        return $this;
+    } // setMonth()
+
+    /**
+     * Set the value of [year] column.
+     *
+     * @param int $v new value
+     * @return $this|\myDataStore The current object (for fluent API support)
+     */
+    public function setYear($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->year !== $v) {
+            $this->year = $v;
+            $this->modifiedColumns[myDataStoreTableMap::COL_YEAR] = true;
+        }
+
+        return $this;
+    } // setYear()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -609,7 +671,7 @@ abstract class myDataStore implements ActiveRecordInterface
             $this->nonbil = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : myDataStoreTableMap::translateFieldName('Assignee', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->assignee = (null !== $col) ? (double) $col : null;
+            $this->assignee = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : myDataStoreTableMap::translateFieldName('Estimated', TableMap::TYPE_PHPNAME, $indexType)];
             $this->estimated = (null !== $col) ? (double) $col : null;
@@ -617,11 +679,14 @@ abstract class myDataStore implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : myDataStoreTableMap::translateFieldName('SpentTime', TableMap::TYPE_PHPNAME, $indexType)];
             $this->spenttime = (null !== $col) ? (double) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : myDataStoreTableMap::translateFieldName('Data', TableMap::TYPE_PHPNAME, $indexType)];
-            if ($col === '0000-00-00 00:00:00') {
-                $col = null;
-            }
-            $this->data = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : myDataStoreTableMap::translateFieldName('Day', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->day = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : myDataStoreTableMap::translateFieldName('Month', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->month = (null !== $col) ? (int) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : myDataStoreTableMap::translateFieldName('Year', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->year = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -630,7 +695,7 @@ abstract class myDataStore implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 7; // 7 = myDataStoreTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 9; // 9 = myDataStoreTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\myDataStore'), 0, $e);
@@ -845,8 +910,14 @@ abstract class myDataStore implements ActiveRecordInterface
         if ($this->isColumnModified(myDataStoreTableMap::COL_SPENTTIME)) {
             $modifiedColumns[':p' . $index++]  = 'spenttime';
         }
-        if ($this->isColumnModified(myDataStoreTableMap::COL_DATA)) {
-            $modifiedColumns[':p' . $index++]  = 'data';
+        if ($this->isColumnModified(myDataStoreTableMap::COL_DAY)) {
+            $modifiedColumns[':p' . $index++]  = 'day';
+        }
+        if ($this->isColumnModified(myDataStoreTableMap::COL_MONTH)) {
+            $modifiedColumns[':p' . $index++]  = 'month';
+        }
+        if ($this->isColumnModified(myDataStoreTableMap::COL_YEAR)) {
+            $modifiedColumns[':p' . $index++]  = 'year';
         }
 
         $sql = sprintf(
@@ -877,8 +948,14 @@ abstract class myDataStore implements ActiveRecordInterface
                     case 'spenttime':
                         $stmt->bindValue($identifier, $this->spenttime, PDO::PARAM_STR);
                         break;
-                    case 'data':
-                        $stmt->bindValue($identifier, $this->data ? $this->data->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
+                    case 'day':
+                        $stmt->bindValue($identifier, $this->day, PDO::PARAM_INT);
+                        break;
+                    case 'month':
+                        $stmt->bindValue($identifier, $this->month, PDO::PARAM_INT);
+                        break;
+                    case 'year':
+                        $stmt->bindValue($identifier, $this->year, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -961,7 +1038,13 @@ abstract class myDataStore implements ActiveRecordInterface
                 return $this->getSpentTime();
                 break;
             case 6:
-                return $this->getData();
+                return $this->getDay();
+                break;
+            case 7:
+                return $this->getMonth();
+                break;
+            case 8:
+                return $this->getYear();
                 break;
             default:
                 return null;
@@ -998,12 +1081,10 @@ abstract class myDataStore implements ActiveRecordInterface
             $keys[3] => $this->getAssignee(),
             $keys[4] => $this->getEstimated(),
             $keys[5] => $this->getSpentTime(),
-            $keys[6] => $this->getData(),
+            $keys[6] => $this->getDay(),
+            $keys[7] => $this->getMonth(),
+            $keys[8] => $this->getYear(),
         );
-        if ($result[$keys[6]] instanceof \DateTime) {
-            $result[$keys[6]] = $result[$keys[6]]->format('c');
-        }
-
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
@@ -1061,7 +1142,13 @@ abstract class myDataStore implements ActiveRecordInterface
                 $this->setSpentTime($value);
                 break;
             case 6:
-                $this->setData($value);
+                $this->setDay($value);
+                break;
+            case 7:
+                $this->setMonth($value);
+                break;
+            case 8:
+                $this->setYear($value);
                 break;
         } // switch()
 
@@ -1108,7 +1195,13 @@ abstract class myDataStore implements ActiveRecordInterface
             $this->setSpentTime($arr[$keys[5]]);
         }
         if (array_key_exists($keys[6], $arr)) {
-            $this->setData($arr[$keys[6]]);
+            $this->setDay($arr[$keys[6]]);
+        }
+        if (array_key_exists($keys[7], $arr)) {
+            $this->setMonth($arr[$keys[7]]);
+        }
+        if (array_key_exists($keys[8], $arr)) {
+            $this->setYear($arr[$keys[8]]);
         }
     }
 
@@ -1169,8 +1262,14 @@ abstract class myDataStore implements ActiveRecordInterface
         if ($this->isColumnModified(myDataStoreTableMap::COL_SPENTTIME)) {
             $criteria->add(myDataStoreTableMap::COL_SPENTTIME, $this->spenttime);
         }
-        if ($this->isColumnModified(myDataStoreTableMap::COL_DATA)) {
-            $criteria->add(myDataStoreTableMap::COL_DATA, $this->data);
+        if ($this->isColumnModified(myDataStoreTableMap::COL_DAY)) {
+            $criteria->add(myDataStoreTableMap::COL_DAY, $this->day);
+        }
+        if ($this->isColumnModified(myDataStoreTableMap::COL_MONTH)) {
+            $criteria->add(myDataStoreTableMap::COL_MONTH, $this->month);
+        }
+        if ($this->isColumnModified(myDataStoreTableMap::COL_YEAR)) {
+            $criteria->add(myDataStoreTableMap::COL_YEAR, $this->year);
         }
 
         return $criteria;
@@ -1263,7 +1362,9 @@ abstract class myDataStore implements ActiveRecordInterface
         $copyObj->setAssignee($this->getAssignee());
         $copyObj->setEstimated($this->getEstimated());
         $copyObj->setSpentTime($this->getSpentTime());
-        $copyObj->setData($this->getData());
+        $copyObj->setDay($this->getDay());
+        $copyObj->setMonth($this->getMonth());
+        $copyObj->setYear($this->getYear());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1305,7 +1406,9 @@ abstract class myDataStore implements ActiveRecordInterface
         $this->assignee = null;
         $this->estimated = null;
         $this->spenttime = null;
-        $this->data = null;
+        $this->day = null;
+        $this->month = null;
+        $this->year = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

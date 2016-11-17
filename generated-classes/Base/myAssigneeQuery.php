@@ -23,11 +23,15 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildmyAssigneeQuery orderByassigneeName($order = Criteria::ASC) Order by the assigneename column
  * @method     ChildmyAssigneeQuery orderBySalary($order = Criteria::ASC) Order by the salary column
  * @method     ChildmyAssigneeQuery orderByhourlyRate($order = Criteria::ASC) Order by the hourlyrate column
+ * @method     ChildmyAssigneeQuery orderByGroup($order = Criteria::ASC) Order by the group column
+ * @method     ChildmyAssigneeQuery orderBySpented($order = Criteria::ASC) Order by the spented column
  *
  * @method     ChildmyAssigneeQuery groupById() Group by the id column
  * @method     ChildmyAssigneeQuery groupByassigneeName() Group by the assigneename column
  * @method     ChildmyAssigneeQuery groupBySalary() Group by the salary column
  * @method     ChildmyAssigneeQuery groupByhourlyRate() Group by the hourlyrate column
+ * @method     ChildmyAssigneeQuery groupByGroup() Group by the group column
+ * @method     ChildmyAssigneeQuery groupBySpented() Group by the spented column
  *
  * @method     ChildmyAssigneeQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildmyAssigneeQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -43,7 +47,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildmyAssignee findOneById(int $id) Return the first ChildmyAssignee filtered by the id column
  * @method     ChildmyAssignee findOneByassigneeName(string $assigneename) Return the first ChildmyAssignee filtered by the assigneename column
  * @method     ChildmyAssignee findOneBySalary(double $salary) Return the first ChildmyAssignee filtered by the salary column
- * @method     ChildmyAssignee findOneByhourlyRate(double $hourlyrate) Return the first ChildmyAssignee filtered by the hourlyrate column *
+ * @method     ChildmyAssignee findOneByhourlyRate(double $hourlyrate) Return the first ChildmyAssignee filtered by the hourlyrate column
+ * @method     ChildmyAssignee findOneByGroup(string $group) Return the first ChildmyAssignee filtered by the group column
+ * @method     ChildmyAssignee findOneBySpented(double $spented) Return the first ChildmyAssignee filtered by the spented column *
 
  * @method     ChildmyAssignee requirePk($key, ConnectionInterface $con = null) Return the ChildmyAssignee by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildmyAssignee requireOne(ConnectionInterface $con = null) Return the first ChildmyAssignee matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -52,12 +58,16 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildmyAssignee requireOneByassigneeName(string $assigneename) Return the first ChildmyAssignee filtered by the assigneename column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildmyAssignee requireOneBySalary(double $salary) Return the first ChildmyAssignee filtered by the salary column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildmyAssignee requireOneByhourlyRate(double $hourlyrate) Return the first ChildmyAssignee filtered by the hourlyrate column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildmyAssignee requireOneByGroup(string $group) Return the first ChildmyAssignee filtered by the group column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildmyAssignee requireOneBySpented(double $spented) Return the first ChildmyAssignee filtered by the spented column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildmyAssignee[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildmyAssignee objects based on current ModelCriteria
  * @method     ChildmyAssignee[]|ObjectCollection findById(int $id) Return ChildmyAssignee objects filtered by the id column
  * @method     ChildmyAssignee[]|ObjectCollection findByassigneeName(string $assigneename) Return ChildmyAssignee objects filtered by the assigneename column
  * @method     ChildmyAssignee[]|ObjectCollection findBySalary(double $salary) Return ChildmyAssignee objects filtered by the salary column
  * @method     ChildmyAssignee[]|ObjectCollection findByhourlyRate(double $hourlyrate) Return ChildmyAssignee objects filtered by the hourlyrate column
+ * @method     ChildmyAssignee[]|ObjectCollection findByGroup(string $group) Return ChildmyAssignee objects filtered by the group column
+ * @method     ChildmyAssignee[]|ObjectCollection findBySpented(double $spented) Return ChildmyAssignee objects filtered by the spented column
  * @method     ChildmyAssignee[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -156,7 +166,7 @@ abstract class myAssigneeQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, assigneename, salary, hourlyrate FROM myassignee WHERE id = :p0';
+        $sql = 'SELECT id, assigneename, salary, hourlyrate, group, spented FROM myassignee WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -392,6 +402,72 @@ abstract class myAssigneeQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(myAssigneeTableMap::COL_HOURLYRATE, $hourlyRate, $comparison);
+    }
+
+    /**
+     * Filter the query on the group column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByGroup('fooValue');   // WHERE group = 'fooValue'
+     * $query->filterByGroup('%fooValue%', Criteria::LIKE); // WHERE group LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $group The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildmyAssigneeQuery The current query, for fluid interface
+     */
+    public function filterByGroup($group = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($group)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(myAssigneeTableMap::COL_GROUP, $group, $comparison);
+    }
+
+    /**
+     * Filter the query on the spented column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBySpented(1234); // WHERE spented = 1234
+     * $query->filterBySpented(array(12, 34)); // WHERE spented IN (12, 34)
+     * $query->filterBySpented(array('min' => 12)); // WHERE spented > 12
+     * </code>
+     *
+     * @param     mixed $spented The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildmyAssigneeQuery The current query, for fluid interface
+     */
+    public function filterBySpented($spented = null, $comparison = null)
+    {
+        if (is_array($spented)) {
+            $useMinMax = false;
+            if (isset($spented['min'])) {
+                $this->addUsingAlias(myAssigneeTableMap::COL_SPENTED, $spented['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($spented['max'])) {
+                $this->addUsingAlias(myAssigneeTableMap::COL_SPENTED, $spented['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(myAssigneeTableMap::COL_SPENTED, $spented, $comparison);
     }
 
     /**

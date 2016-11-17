@@ -59,7 +59,7 @@ class myDataStoreTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 7;
+    const NUM_COLUMNS = 9;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class myDataStoreTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 7;
+    const NUM_HYDRATE_COLUMNS = 9;
 
     /**
      * the column name for the id field
@@ -102,9 +102,19 @@ class myDataStoreTableMap extends TableMap
     const COL_SPENTTIME = 'mydatastore.spenttime';
 
     /**
-     * the column name for the data field
+     * the column name for the day field
      */
-    const COL_DATA = 'mydatastore.data';
+    const COL_DAY = 'mydatastore.day';
+
+    /**
+     * the column name for the month field
+     */
+    const COL_MONTH = 'mydatastore.month';
+
+    /**
+     * the column name for the year field
+     */
+    const COL_YEAR = 'mydatastore.year';
 
     /**
      * The default string format for model objects of the related table
@@ -118,11 +128,11 @@ class myDataStoreTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Project', 'NonBil', 'Assignee', 'Estimated', 'SpentTime', 'Data', ),
-        self::TYPE_CAMELNAME     => array('id', 'project', 'nonBil', 'assignee', 'estimated', 'spentTime', 'data', ),
-        self::TYPE_COLNAME       => array(myDataStoreTableMap::COL_ID, myDataStoreTableMap::COL_PROJECT, myDataStoreTableMap::COL_NONBIL, myDataStoreTableMap::COL_ASSIGNEE, myDataStoreTableMap::COL_ESTIMATED, myDataStoreTableMap::COL_SPENTTIME, myDataStoreTableMap::COL_DATA, ),
-        self::TYPE_FIELDNAME     => array('id', 'project', 'nonbil', 'assignee', 'estimated', 'spenttime', 'data', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id', 'Project', 'NonBil', 'Assignee', 'Estimated', 'SpentTime', 'Day', 'Month', 'Year', ),
+        self::TYPE_CAMELNAME     => array('id', 'project', 'nonBil', 'assignee', 'estimated', 'spentTime', 'day', 'month', 'year', ),
+        self::TYPE_COLNAME       => array(myDataStoreTableMap::COL_ID, myDataStoreTableMap::COL_PROJECT, myDataStoreTableMap::COL_NONBIL, myDataStoreTableMap::COL_ASSIGNEE, myDataStoreTableMap::COL_ESTIMATED, myDataStoreTableMap::COL_SPENTTIME, myDataStoreTableMap::COL_DAY, myDataStoreTableMap::COL_MONTH, myDataStoreTableMap::COL_YEAR, ),
+        self::TYPE_FIELDNAME     => array('id', 'project', 'nonbil', 'assignee', 'estimated', 'spenttime', 'day', 'month', 'year', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -132,11 +142,11 @@ class myDataStoreTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Project' => 1, 'NonBil' => 2, 'Assignee' => 3, 'Estimated' => 4, 'SpentTime' => 5, 'Data' => 6, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'project' => 1, 'nonBil' => 2, 'assignee' => 3, 'estimated' => 4, 'spentTime' => 5, 'data' => 6, ),
-        self::TYPE_COLNAME       => array(myDataStoreTableMap::COL_ID => 0, myDataStoreTableMap::COL_PROJECT => 1, myDataStoreTableMap::COL_NONBIL => 2, myDataStoreTableMap::COL_ASSIGNEE => 3, myDataStoreTableMap::COL_ESTIMATED => 4, myDataStoreTableMap::COL_SPENTTIME => 5, myDataStoreTableMap::COL_DATA => 6, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'project' => 1, 'nonbil' => 2, 'assignee' => 3, 'estimated' => 4, 'spenttime' => 5, 'data' => 6, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Project' => 1, 'NonBil' => 2, 'Assignee' => 3, 'Estimated' => 4, 'SpentTime' => 5, 'Day' => 6, 'Month' => 7, 'Year' => 8, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'project' => 1, 'nonBil' => 2, 'assignee' => 3, 'estimated' => 4, 'spentTime' => 5, 'day' => 6, 'month' => 7, 'year' => 8, ),
+        self::TYPE_COLNAME       => array(myDataStoreTableMap::COL_ID => 0, myDataStoreTableMap::COL_PROJECT => 1, myDataStoreTableMap::COL_NONBIL => 2, myDataStoreTableMap::COL_ASSIGNEE => 3, myDataStoreTableMap::COL_ESTIMATED => 4, myDataStoreTableMap::COL_SPENTTIME => 5, myDataStoreTableMap::COL_DAY => 6, myDataStoreTableMap::COL_MONTH => 7, myDataStoreTableMap::COL_YEAR => 8, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'project' => 1, 'nonbil' => 2, 'assignee' => 3, 'estimated' => 4, 'spenttime' => 5, 'day' => 6, 'month' => 7, 'year' => 8, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, )
     );
 
     /**
@@ -159,10 +169,12 @@ class myDataStoreTableMap extends TableMap
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('project', 'Project', 'VARCHAR', false, 255, null);
         $this->addColumn('nonbil', 'NonBil', 'VARCHAR', false, 24, null);
-        $this->addColumn('assignee', 'Assignee', 'DOUBLE', false, null, null);
+        $this->addColumn('assignee', 'Assignee', 'VARCHAR', false, 255, null);
         $this->addColumn('estimated', 'Estimated', 'DOUBLE', false, null, null);
         $this->addColumn('spenttime', 'SpentTime', 'DOUBLE', false, null, null);
-        $this->addColumn('data', 'Data', 'TIMESTAMP', false, null, null);
+        $this->addColumn('day', 'Day', 'INTEGER', false, null, null);
+        $this->addColumn('month', 'Month', 'INTEGER', false, null, null);
+        $this->addColumn('year', 'Year', 'INTEGER', false, null, null);
     } // initialize()
 
     /**
@@ -319,7 +331,9 @@ class myDataStoreTableMap extends TableMap
             $criteria->addSelectColumn(myDataStoreTableMap::COL_ASSIGNEE);
             $criteria->addSelectColumn(myDataStoreTableMap::COL_ESTIMATED);
             $criteria->addSelectColumn(myDataStoreTableMap::COL_SPENTTIME);
-            $criteria->addSelectColumn(myDataStoreTableMap::COL_DATA);
+            $criteria->addSelectColumn(myDataStoreTableMap::COL_DAY);
+            $criteria->addSelectColumn(myDataStoreTableMap::COL_MONTH);
+            $criteria->addSelectColumn(myDataStoreTableMap::COL_YEAR);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.project');
@@ -327,7 +341,9 @@ class myDataStoreTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.assignee');
             $criteria->addSelectColumn($alias . '.estimated');
             $criteria->addSelectColumn($alias . '.spenttime');
-            $criteria->addSelectColumn($alias . '.data');
+            $criteria->addSelectColumn($alias . '.day');
+            $criteria->addSelectColumn($alias . '.month');
+            $criteria->addSelectColumn($alias . '.year');
         }
     }
 
