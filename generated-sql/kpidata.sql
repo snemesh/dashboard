@@ -16,7 +16,10 @@ CREATE TABLE `mydatastore`
     `nonbil` VARCHAR(24),
     `assignee` DOUBLE,
     `estimated` DOUBLE,
-    `$spenttime` DOUBLE,
+    `spenttime` DOUBLE,
+    `data` DATETIME,
+    `datamonth` DATE,
+    `datayear` DATE,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 

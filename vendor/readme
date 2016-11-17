@@ -5,4 +5,4 @@ $ cd myproject/vendor/propel
 $ git pull
 $ cd myproject
 $ ln -s vendor/bin/propel propel
-$ export PATH=$PATH:/Library/WebServer/Documents/dashboard/vendor/propel/propel/bin/  //Важно!!
+$ export PATH=$PATH:/Library/WebServer/Documents/www/dashboard/vendor/propel/propel/bin/  //Важно!!

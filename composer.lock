@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3141480477ff84ee7eb07a8bd1977100",
-    "content-hash": "898f1d01963b7099bdd0314409408095",
+    "hash": "4b164f4da341f667743cac2036372df0",
+    "content-hash": "173cce7eb7b4b7d89be8f9cc4c79fa93",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -91,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/propelorm/Propel2.git",
-                "reference": "38f1044e9b57cb7f68b59224f1830bde7009673f"
+                "reference": "b1f82623ea1b61c9b4246aa7cf9be4196a9652a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/38f1044e9b57cb7f68b59224f1830bde7009673f",
-                "reference": "38f1044e9b57cb7f68b59224f1830bde7009673f",
+                "url": "https://api.github.com/repos/propelorm/Propel2/zipball/b1f82623ea1b61c9b4246aa7cf9be4196a9652a0",
+                "reference": "b1f82623ea1b61c9b4246aa7cf9be4196a9652a0",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +148,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-11-11 13:39:25"
+            "time": "2016-11-16 19:55:43"
         },
         {
             "name": "psr/log",
@@ -721,6 +721,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.4.45"
+    },
     "platform-dev": []
 }

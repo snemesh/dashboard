@@ -9,6 +9,5 @@
     "psr-4": {
       "backendless\\": "backendless/src"
     }
-  },
-  "minimum-stability": "dev"
+  }
 }

@@ -2,11 +2,15 @@
 <database name="kpidata" defaultIdMethod="native">
     <table name="mydatastore" phpName="myDataStore">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="project" type="varchar" size="255" required="false" />
-        <column name="nonbil" type="varchar" size="24" required="false" phpName="nonBil"/>
-        <column name="assignee" type="double" required="false"/>
-        <column name="estimated" type="double" required="false"/>
-        <column name="$spenttime" type="double" required="false" phpName="$spentTime"/>
+        <column name="project" type="varchar" size="255" required="false" phpName="Project"/>
+        <column name="nonbil" type="varchar" size="24" required="false" phpName="NonBil"/>
+        <column name="assignee" type="double" required="false" phpName="Assignee"/>
+        <column name="estimated" type="double" required="false" phpName="Estimated"/>
+        <column name="spenttime" type="double" required="false" phpName="SpentTime"/>
+        <column name="data" type="TIMESTAMP" required="false" phpName="Data"/>
+        <column name="datamonth" type="DATE" required="false" phpName="DataMonth"/>
+        <column name="datayear" type="DATE" required="false" phpName="DataYear"/>
+
     </table>
     <table name="myassignee" phpName="myAssignee">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
