@@ -21,23 +21,17 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildmyDataStoreQuery orderById($order = Criteria::ASC) Order by the id column
  * @method     ChildmyDataStoreQuery orderByProject($order = Criteria::ASC) Order by the project column
- * @method     ChildmyDataStoreQuery orderByNonBil($order = Criteria::ASC) Order by the nonbil column
+ * @method     ChildmyDataStoreQuery orderBynonBil($order = Criteria::ASC) Order by the nonbil column
  * @method     ChildmyDataStoreQuery orderByAssignee($order = Criteria::ASC) Order by the assignee column
  * @method     ChildmyDataStoreQuery orderByEstimated($order = Criteria::ASC) Order by the estimated column
- * @method     ChildmyDataStoreQuery orderBySpentTime($order = Criteria::ASC) Order by the spenttime column
- * @method     ChildmyDataStoreQuery orderByDay($order = Criteria::ASC) Order by the day column
- * @method     ChildmyDataStoreQuery orderByMonth($order = Criteria::ASC) Order by the month column
- * @method     ChildmyDataStoreQuery orderByYear($order = Criteria::ASC) Order by the year column
+ * @method     ChildmyDataStoreQuery orderBy$spentTime($order = Criteria::ASC) Order by the $spenttime column
  *
  * @method     ChildmyDataStoreQuery groupById() Group by the id column
  * @method     ChildmyDataStoreQuery groupByProject() Group by the project column
- * @method     ChildmyDataStoreQuery groupByNonBil() Group by the nonbil column
+ * @method     ChildmyDataStoreQuery groupBynonBil() Group by the nonbil column
  * @method     ChildmyDataStoreQuery groupByAssignee() Group by the assignee column
  * @method     ChildmyDataStoreQuery groupByEstimated() Group by the estimated column
- * @method     ChildmyDataStoreQuery groupBySpentTime() Group by the spenttime column
- * @method     ChildmyDataStoreQuery groupByDay() Group by the day column
- * @method     ChildmyDataStoreQuery groupByMonth() Group by the month column
- * @method     ChildmyDataStoreQuery groupByYear() Group by the year column
+ * @method     ChildmyDataStoreQuery groupBy$spentTime() Group by the $spenttime column
  *
  * @method     ChildmyDataStoreQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildmyDataStoreQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -52,37 +46,28 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildmyDataStore findOneById(int $id) Return the first ChildmyDataStore filtered by the id column
  * @method     ChildmyDataStore findOneByProject(string $project) Return the first ChildmyDataStore filtered by the project column
- * @method     ChildmyDataStore findOneByNonBil(string $nonbil) Return the first ChildmyDataStore filtered by the nonbil column
- * @method     ChildmyDataStore findOneByAssignee(string $assignee) Return the first ChildmyDataStore filtered by the assignee column
+ * @method     ChildmyDataStore findOneBynonBil(string $nonbil) Return the first ChildmyDataStore filtered by the nonbil column
+ * @method     ChildmyDataStore findOneByAssignee(double $assignee) Return the first ChildmyDataStore filtered by the assignee column
  * @method     ChildmyDataStore findOneByEstimated(double $estimated) Return the first ChildmyDataStore filtered by the estimated column
- * @method     ChildmyDataStore findOneBySpentTime(double $spenttime) Return the first ChildmyDataStore filtered by the spenttime column
- * @method     ChildmyDataStore findOneByDay(int $day) Return the first ChildmyDataStore filtered by the day column
- * @method     ChildmyDataStore findOneByMonth(int $month) Return the first ChildmyDataStore filtered by the month column
- * @method     ChildmyDataStore findOneByYear(int $year) Return the first ChildmyDataStore filtered by the year column *
+ * @method     ChildmyDataStore findOneBy$spentTime(double $$spenttime) Return the first ChildmyDataStore filtered by the $spenttime column *
 
  * @method     ChildmyDataStore requirePk($key, ConnectionInterface $con = null) Return the ChildmyDataStore by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildmyDataStore requireOne(ConnectionInterface $con = null) Return the first ChildmyDataStore matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildmyDataStore requireOneById(int $id) Return the first ChildmyDataStore filtered by the id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildmyDataStore requireOneByProject(string $project) Return the first ChildmyDataStore filtered by the project column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildmyDataStore requireOneByNonBil(string $nonbil) Return the first ChildmyDataStore filtered by the nonbil column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildmyDataStore requireOneByAssignee(string $assignee) Return the first ChildmyDataStore filtered by the assignee column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildmyDataStore requireOneBynonBil(string $nonbil) Return the first ChildmyDataStore filtered by the nonbil column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildmyDataStore requireOneByAssignee(double $assignee) Return the first ChildmyDataStore filtered by the assignee column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildmyDataStore requireOneByEstimated(double $estimated) Return the first ChildmyDataStore filtered by the estimated column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildmyDataStore requireOneBySpentTime(double $spenttime) Return the first ChildmyDataStore filtered by the spenttime column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildmyDataStore requireOneByDay(int $day) Return the first ChildmyDataStore filtered by the day column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildmyDataStore requireOneByMonth(int $month) Return the first ChildmyDataStore filtered by the month column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildmyDataStore requireOneByYear(int $year) Return the first ChildmyDataStore filtered by the year column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildmyDataStore requireOneBy$spentTime(double $$spenttime) Return the first ChildmyDataStore filtered by the $spenttime column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildmyDataStore[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildmyDataStore objects based on current ModelCriteria
  * @method     ChildmyDataStore[]|ObjectCollection findById(int $id) Return ChildmyDataStore objects filtered by the id column
  * @method     ChildmyDataStore[]|ObjectCollection findByProject(string $project) Return ChildmyDataStore objects filtered by the project column
- * @method     ChildmyDataStore[]|ObjectCollection findByNonBil(string $nonbil) Return ChildmyDataStore objects filtered by the nonbil column
- * @method     ChildmyDataStore[]|ObjectCollection findByAssignee(string $assignee) Return ChildmyDataStore objects filtered by the assignee column
+ * @method     ChildmyDataStore[]|ObjectCollection findBynonBil(string $nonbil) Return ChildmyDataStore objects filtered by the nonbil column
+ * @method     ChildmyDataStore[]|ObjectCollection findByAssignee(double $assignee) Return ChildmyDataStore objects filtered by the assignee column
  * @method     ChildmyDataStore[]|ObjectCollection findByEstimated(double $estimated) Return ChildmyDataStore objects filtered by the estimated column
- * @method     ChildmyDataStore[]|ObjectCollection findBySpentTime(double $spenttime) Return ChildmyDataStore objects filtered by the spenttime column
- * @method     ChildmyDataStore[]|ObjectCollection findByDay(int $day) Return ChildmyDataStore objects filtered by the day column
- * @method     ChildmyDataStore[]|ObjectCollection findByMonth(int $month) Return ChildmyDataStore objects filtered by the month column
- * @method     ChildmyDataStore[]|ObjectCollection findByYear(int $year) Return ChildmyDataStore objects filtered by the year column
+ * @method     ChildmyDataStore[]|ObjectCollection findBy$spentTime(double $$spenttime) Return ChildmyDataStore objects filtered by the $spenttime column
  * @method     ChildmyDataStore[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -181,7 +166,7 @@ abstract class myDataStoreQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, project, nonbil, assignee, estimated, spenttime, day, month, year FROM mydatastore WHERE id = :p0';
+        $sql = 'SELECT id, project, nonbil, assignee, estimated, $spenttime FROM mydatastore WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -342,8 +327,8 @@ abstract class myDataStoreQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByNonBil('fooValue');   // WHERE nonbil = 'fooValue'
-     * $query->filterByNonBil('%fooValue%', Criteria::LIKE); // WHERE nonbil LIKE '%fooValue%'
+     * $query->filterBynonBil('fooValue');   // WHERE nonbil = 'fooValue'
+     * $query->filterBynonBil('%fooValue%', Criteria::LIKE); // WHERE nonbil LIKE '%fooValue%'
      * </code>
      *
      * @param     string $nonBil The value to use as filter.
@@ -351,7 +336,7 @@ abstract class myDataStoreQuery extends ModelCriteria
      *
      * @return $this|ChildmyDataStoreQuery The current query, for fluid interface
      */
-    public function filterByNonBil($nonBil = null, $comparison = null)
+    public function filterBynonBil($nonBil = null, $comparison = null)
     {
         if (null === $comparison) {
             if (is_array($nonBil)) {
@@ -367,19 +352,35 @@ abstract class myDataStoreQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByAssignee('fooValue');   // WHERE assignee = 'fooValue'
-     * $query->filterByAssignee('%fooValue%', Criteria::LIKE); // WHERE assignee LIKE '%fooValue%'
+     * $query->filterByAssignee(1234); // WHERE assignee = 1234
+     * $query->filterByAssignee(array(12, 34)); // WHERE assignee IN (12, 34)
+     * $query->filterByAssignee(array('min' => 12)); // WHERE assignee > 12
      * </code>
      *
-     * @param     string $assignee The value to use as filter.
+     * @param     mixed $assignee The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildmyDataStoreQuery The current query, for fluid interface
      */
     public function filterByAssignee($assignee = null, $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($assignee)) {
+        if (is_array($assignee)) {
+            $useMinMax = false;
+            if (isset($assignee['min'])) {
+                $this->addUsingAlias(myDataStoreTableMap::COL_ASSIGNEE, $assignee['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($assignee['max'])) {
+                $this->addUsingAlias(myDataStoreTableMap::COL_ASSIGNEE, $assignee['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
         }
@@ -429,16 +430,16 @@ abstract class myDataStoreQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the spenttime column
+     * Filter the query on the $spenttime column
      *
      * Example usage:
      * <code>
-     * $query->filterBySpentTime(1234); // WHERE spenttime = 1234
-     * $query->filterBySpentTime(array(12, 34)); // WHERE spenttime IN (12, 34)
-     * $query->filterBySpentTime(array('min' => 12)); // WHERE spenttime > 12
+     * $query->filterBy$spentTime(1234); // WHERE $spenttime = 1234
+     * $query->filterBy$spentTime(array(12, 34)); // WHERE $spenttime IN (12, 34)
+     * $query->filterBy$spentTime(array('min' => 12)); // WHERE $spenttime > 12
      * </code>
      *
-     * @param     mixed $spentTime The value to use as filter.
+     * @param     mixed $$spentTime The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
      *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
@@ -446,16 +447,16 @@ abstract class myDataStoreQuery extends ModelCriteria
      *
      * @return $this|ChildmyDataStoreQuery The current query, for fluid interface
      */
-    public function filterBySpentTime($spentTime = null, $comparison = null)
+    public function filterBy$spentTime($$spentTime = null, $comparison = null)
     {
-        if (is_array($spentTime)) {
+        if (is_array($$spentTime)) {
             $useMinMax = false;
-            if (isset($spentTime['min'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_SPENTTIME, $spentTime['min'], Criteria::GREATER_EQUAL);
+            if (isset($$spentTime['min'])) {
+                $this->addUsingAlias(myDataStoreTableMap::COL_$SPENTTIME, $$spentTime['min'], Criteria::GREATER_EQUAL);
                 $useMinMax = true;
             }
-            if (isset($spentTime['max'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_SPENTTIME, $spentTime['max'], Criteria::LESS_EQUAL);
+            if (isset($$spentTime['max'])) {
+                $this->addUsingAlias(myDataStoreTableMap::COL_$SPENTTIME, $$spentTime['max'], Criteria::LESS_EQUAL);
                 $useMinMax = true;
             }
             if ($useMinMax) {
@@ -466,130 +467,7 @@ abstract class myDataStoreQuery extends ModelCriteria
             }
         }
 
-        return $this->addUsingAlias(myDataStoreTableMap::COL_SPENTTIME, $spentTime, $comparison);
-    }
-
-    /**
-     * Filter the query on the day column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByDay(1234); // WHERE day = 1234
-     * $query->filterByDay(array(12, 34)); // WHERE day IN (12, 34)
-     * $query->filterByDay(array('min' => 12)); // WHERE day > 12
-     * </code>
-     *
-     * @param     mixed $day The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildmyDataStoreQuery The current query, for fluid interface
-     */
-    public function filterByDay($day = null, $comparison = null)
-    {
-        if (is_array($day)) {
-            $useMinMax = false;
-            if (isset($day['min'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_DAY, $day['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($day['max'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_DAY, $day['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(myDataStoreTableMap::COL_DAY, $day, $comparison);
-    }
-
-    /**
-     * Filter the query on the month column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByMonth(1234); // WHERE month = 1234
-     * $query->filterByMonth(array(12, 34)); // WHERE month IN (12, 34)
-     * $query->filterByMonth(array('min' => 12)); // WHERE month > 12
-     * </code>
-     *
-     * @param     mixed $month The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildmyDataStoreQuery The current query, for fluid interface
-     */
-    public function filterByMonth($month = null, $comparison = null)
-    {
-        if (is_array($month)) {
-            $useMinMax = false;
-            if (isset($month['min'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_MONTH, $month['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($month['max'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_MONTH, $month['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(myDataStoreTableMap::COL_MONTH, $month, $comparison);
-    }
-
-    /**
-     * Filter the query on the year column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByYear(1234); // WHERE year = 1234
-     * $query->filterByYear(array(12, 34)); // WHERE year IN (12, 34)
-     * $query->filterByYear(array('min' => 12)); // WHERE year > 12
-     * </code>
-     *
-     * @param     mixed $year The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildmyDataStoreQuery The current query, for fluid interface
-     */
-    public function filterByYear($year = null, $comparison = null)
-    {
-        if (is_array($year)) {
-            $useMinMax = false;
-            if (isset($year['min'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_YEAR, $year['min'], Criteria::GREATER_EQUAL);
-                $useMinMax = true;
-            }
-            if (isset($year['max'])) {
-                $this->addUsingAlias(myDataStoreTableMap::COL_YEAR, $year['max'], Criteria::LESS_EQUAL);
-                $useMinMax = true;
-            }
-            if ($useMinMax) {
-                return $this;
-            }
-            if (null === $comparison) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(myDataStoreTableMap::COL_YEAR, $year, $comparison);
+        return $this->addUsingAlias(myDataStoreTableMap::COL_$SPENTTIME, $$spentTime, $comparison);
     }
 
     /**

@@ -59,7 +59,7 @@ class myAssigneeTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 6;
+    const NUM_COLUMNS = 4;
 
     /**
      * The number of lazy-loaded columns
@@ -69,7 +69,7 @@ class myAssigneeTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 6;
+    const NUM_HYDRATE_COLUMNS = 4;
 
     /**
      * the column name for the id field
@@ -92,16 +92,6 @@ class myAssigneeTableMap extends TableMap
     const COL_HOURLYRATE = 'myassignee.hourlyrate';
 
     /**
-     * the column name for the group field
-     */
-    const COL_GROUP = 'myassignee.group';
-
-    /**
-     * the column name for the spented field
-     */
-    const COL_SPENTED = 'myassignee.spented';
-
-    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -113,11 +103,11 @@ class myAssigneeTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'assigneeName', 'Salary', 'hourlyRate', 'Group', 'Spented', ),
-        self::TYPE_CAMELNAME     => array('id', 'assigneeName', 'salary', 'hourlyRate', 'group', 'spented', ),
-        self::TYPE_COLNAME       => array(myAssigneeTableMap::COL_ID, myAssigneeTableMap::COL_ASSIGNEENAME, myAssigneeTableMap::COL_SALARY, myAssigneeTableMap::COL_HOURLYRATE, myAssigneeTableMap::COL_GROUP, myAssigneeTableMap::COL_SPENTED, ),
-        self::TYPE_FIELDNAME     => array('id', 'assigneename', 'salary', 'hourlyrate', 'group', 'spented', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, )
+        self::TYPE_PHPNAME       => array('Id', 'assigneeName', 'Salary', 'hourlyRate', ),
+        self::TYPE_CAMELNAME     => array('id', 'assigneeName', 'salary', 'hourlyRate', ),
+        self::TYPE_COLNAME       => array(myAssigneeTableMap::COL_ID, myAssigneeTableMap::COL_ASSIGNEENAME, myAssigneeTableMap::COL_SALARY, myAssigneeTableMap::COL_HOURLYRATE, ),
+        self::TYPE_FIELDNAME     => array('id', 'assigneename', 'salary', 'hourlyrate', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, )
     );
 
     /**
@@ -127,11 +117,11 @@ class myAssigneeTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'assigneeName' => 1, 'Salary' => 2, 'hourlyRate' => 3, 'Group' => 4, 'Spented' => 5, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'assigneeName' => 1, 'salary' => 2, 'hourlyRate' => 3, 'group' => 4, 'spented' => 5, ),
-        self::TYPE_COLNAME       => array(myAssigneeTableMap::COL_ID => 0, myAssigneeTableMap::COL_ASSIGNEENAME => 1, myAssigneeTableMap::COL_SALARY => 2, myAssigneeTableMap::COL_HOURLYRATE => 3, myAssigneeTableMap::COL_GROUP => 4, myAssigneeTableMap::COL_SPENTED => 5, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'assigneename' => 1, 'salary' => 2, 'hourlyrate' => 3, 'group' => 4, 'spented' => 5, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'assigneeName' => 1, 'Salary' => 2, 'hourlyRate' => 3, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'assigneeName' => 1, 'salary' => 2, 'hourlyRate' => 3, ),
+        self::TYPE_COLNAME       => array(myAssigneeTableMap::COL_ID => 0, myAssigneeTableMap::COL_ASSIGNEENAME => 1, myAssigneeTableMap::COL_SALARY => 2, myAssigneeTableMap::COL_HOURLYRATE => 3, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'assigneename' => 1, 'salary' => 2, 'hourlyrate' => 3, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, )
     );
 
     /**
@@ -155,8 +145,6 @@ class myAssigneeTableMap extends TableMap
         $this->addColumn('assigneename', 'assigneeName', 'VARCHAR', false, 128, null);
         $this->addColumn('salary', 'Salary', 'DOUBLE', false, null, null);
         $this->addColumn('hourlyrate', 'hourlyRate', 'DOUBLE', false, null, null);
-        $this->addColumn('group', 'Group', 'VARCHAR', false, 128, null);
-        $this->addColumn('spented', 'Spented', 'DOUBLE', false, null, null);
     } // initialize()
 
     /**
@@ -311,15 +299,11 @@ class myAssigneeTableMap extends TableMap
             $criteria->addSelectColumn(myAssigneeTableMap::COL_ASSIGNEENAME);
             $criteria->addSelectColumn(myAssigneeTableMap::COL_SALARY);
             $criteria->addSelectColumn(myAssigneeTableMap::COL_HOURLYRATE);
-            $criteria->addSelectColumn(myAssigneeTableMap::COL_GROUP);
-            $criteria->addSelectColumn(myAssigneeTableMap::COL_SPENTED);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.assigneename');
             $criteria->addSelectColumn($alias . '.salary');
             $criteria->addSelectColumn($alias . '.hourlyrate');
-            $criteria->addSelectColumn($alias . '.group');
-            $criteria->addSelectColumn($alias . '.spented');
         }
     }
 

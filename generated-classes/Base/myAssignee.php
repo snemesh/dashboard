@@ -88,20 +88,6 @@ abstract class myAssignee implements ActiveRecordInterface
     protected $hourlyrate;
 
     /**
-     * The value for the group field.
-     *
-     * @var        string
-     */
-    protected $group;
-
-    /**
-     * The value for the spented field.
-     *
-     * @var        double
-     */
-    protected $spented;
-
-    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -375,26 +361,6 @@ abstract class myAssignee implements ActiveRecordInterface
     }
 
     /**
-     * Get the [group] column value.
-     *
-     * @return string
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * Get the [spented] column value.
-     *
-     * @return double
-     */
-    public function getSpented()
-    {
-        return $this->spented;
-    }
-
-    /**
      * Set the value of [id] column.
      *
      * @param int $v new value
@@ -475,46 +441,6 @@ abstract class myAssignee implements ActiveRecordInterface
     } // sethourlyRate()
 
     /**
-     * Set the value of [group] column.
-     *
-     * @param string $v new value
-     * @return $this|\myAssignee The current object (for fluent API support)
-     */
-    public function setGroup($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->group !== $v) {
-            $this->group = $v;
-            $this->modifiedColumns[myAssigneeTableMap::COL_GROUP] = true;
-        }
-
-        return $this;
-    } // setGroup()
-
-    /**
-     * Set the value of [spented] column.
-     *
-     * @param double $v new value
-     * @return $this|\myAssignee The current object (for fluent API support)
-     */
-    public function setSpented($v)
-    {
-        if ($v !== null) {
-            $v = (double) $v;
-        }
-
-        if ($this->spented !== $v) {
-            $this->spented = $v;
-            $this->modifiedColumns[myAssigneeTableMap::COL_SPENTED] = true;
-        }
-
-        return $this;
-    } // setSpented()
-
-    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -561,12 +487,6 @@ abstract class myAssignee implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : myAssigneeTableMap::translateFieldName('hourlyRate', TableMap::TYPE_PHPNAME, $indexType)];
             $this->hourlyrate = (null !== $col) ? (double) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : myAssigneeTableMap::translateFieldName('Group', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->group = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : myAssigneeTableMap::translateFieldName('Spented', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->spented = (null !== $col) ? (double) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -575,7 +495,7 @@ abstract class myAssignee implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 6; // 6 = myAssigneeTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 4; // 4 = myAssigneeTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\myAssignee'), 0, $e);
@@ -784,12 +704,6 @@ abstract class myAssignee implements ActiveRecordInterface
         if ($this->isColumnModified(myAssigneeTableMap::COL_HOURLYRATE)) {
             $modifiedColumns[':p' . $index++]  = 'hourlyrate';
         }
-        if ($this->isColumnModified(myAssigneeTableMap::COL_GROUP)) {
-            $modifiedColumns[':p' . $index++]  = 'group';
-        }
-        if ($this->isColumnModified(myAssigneeTableMap::COL_SPENTED)) {
-            $modifiedColumns[':p' . $index++]  = 'spented';
-        }
 
         $sql = sprintf(
             'INSERT INTO myassignee (%s) VALUES (%s)',
@@ -812,12 +726,6 @@ abstract class myAssignee implements ActiveRecordInterface
                         break;
                     case 'hourlyrate':
                         $stmt->bindValue($identifier, $this->hourlyrate, PDO::PARAM_STR);
-                        break;
-                    case 'group':
-                        $stmt->bindValue($identifier, $this->group, PDO::PARAM_STR);
-                        break;
-                    case 'spented':
-                        $stmt->bindValue($identifier, $this->spented, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -893,12 +801,6 @@ abstract class myAssignee implements ActiveRecordInterface
             case 3:
                 return $this->gethourlyRate();
                 break;
-            case 4:
-                return $this->getGroup();
-                break;
-            case 5:
-                return $this->getSpented();
-                break;
             default:
                 return null;
                 break;
@@ -932,8 +834,6 @@ abstract class myAssignee implements ActiveRecordInterface
             $keys[1] => $this->getassigneeName(),
             $keys[2] => $this->getSalary(),
             $keys[3] => $this->gethourlyRate(),
-            $keys[4] => $this->getGroup(),
-            $keys[5] => $this->getSpented(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -985,12 +885,6 @@ abstract class myAssignee implements ActiveRecordInterface
             case 3:
                 $this->sethourlyRate($value);
                 break;
-            case 4:
-                $this->setGroup($value);
-                break;
-            case 5:
-                $this->setSpented($value);
-                break;
         } // switch()
 
         return $this;
@@ -1028,12 +922,6 @@ abstract class myAssignee implements ActiveRecordInterface
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->sethourlyRate($arr[$keys[3]]);
-        }
-        if (array_key_exists($keys[4], $arr)) {
-            $this->setGroup($arr[$keys[4]]);
-        }
-        if (array_key_exists($keys[5], $arr)) {
-            $this->setSpented($arr[$keys[5]]);
         }
     }
 
@@ -1087,12 +975,6 @@ abstract class myAssignee implements ActiveRecordInterface
         }
         if ($this->isColumnModified(myAssigneeTableMap::COL_HOURLYRATE)) {
             $criteria->add(myAssigneeTableMap::COL_HOURLYRATE, $this->hourlyrate);
-        }
-        if ($this->isColumnModified(myAssigneeTableMap::COL_GROUP)) {
-            $criteria->add(myAssigneeTableMap::COL_GROUP, $this->group);
-        }
-        if ($this->isColumnModified(myAssigneeTableMap::COL_SPENTED)) {
-            $criteria->add(myAssigneeTableMap::COL_SPENTED, $this->spented);
         }
 
         return $criteria;
@@ -1183,8 +1065,6 @@ abstract class myAssignee implements ActiveRecordInterface
         $copyObj->setassigneeName($this->getassigneeName());
         $copyObj->setSalary($this->getSalary());
         $copyObj->sethourlyRate($this->gethourlyRate());
-        $copyObj->setGroup($this->getGroup());
-        $copyObj->setSpented($this->getSpented());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1224,8 +1104,6 @@ abstract class myAssignee implements ActiveRecordInterface
         $this->assigneename = null;
         $this->salary = null;
         $this->hourlyrate = null;
-        $this->group = null;
-        $this->spented = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
