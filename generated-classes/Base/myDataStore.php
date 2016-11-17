@@ -3,6 +3,7 @@
 namespace Base;
 
 use \myDataStoreQuery as ChildmyDataStoreQuery;
+use \DateTime;
 use \Exception;
 use \PDO;
 use Map\myDataStoreTableMap;
@@ -17,6 +18,7 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
+use Propel\Runtime\Util\PropelDateTime;
 
 /**
  * Base class that represents a row from the 'mydatastore' table.
@@ -95,11 +97,18 @@ abstract class myDataStore implements ActiveRecordInterface
     protected $estimated;
 
     /**
-     * The value for the $spenttime field.
+     * The value for the spenttime field.
      *
      * @var        double
      */
-    protected $$spenttime;
+    protected $spenttime;
+
+    /**
+     * The value for the data field.
+     *
+     * @var        DateTime
+     */
+    protected $data;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -359,7 +368,7 @@ abstract class myDataStore implements ActiveRecordInterface
      *
      * @return string
      */
-    public function getnonBil()
+    public function getNonBil()
     {
         return $this->nonbil;
     }
@@ -385,13 +394,33 @@ abstract class myDataStore implements ActiveRecordInterface
     }
 
     /**
-     * Get the [$spenttime] column value.
+     * Get the [spenttime] column value.
      *
      * @return double
      */
-    public function get$spentTime()
+    public function getSpentTime()
     {
-        return $this->$spenttime;
+        return $this->spenttime;
+    }
+
+    /**
+     * Get the [optionally formatted] temporal [data] column value.
+     *
+     *
+     * @param      string $format The date/time format string (either date()-style or strftime()-style).
+     *                            If format is NULL, then the raw DateTime object will be returned.
+     *
+     * @return string|DateTime Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+     *
+     * @throws PropelException - if unable to parse/validate the date/time value.
+     */
+    public function getData($format = NULL)
+    {
+        if ($format === null) {
+            return $this->data;
+        } else {
+            return $this->data instanceof \DateTimeInterface ? $this->data->format($format) : null;
+        }
     }
 
     /**
@@ -440,7 +469,7 @@ abstract class myDataStore implements ActiveRecordInterface
      * @param string $v new value
      * @return $this|\myDataStore The current object (for fluent API support)
      */
-    public function setnonBil($v)
+    public function setNonBil($v)
     {
         if ($v !== null) {
             $v = (string) $v;
@@ -452,7 +481,7 @@ abstract class myDataStore implements ActiveRecordInterface
         }
 
         return $this;
-    } // setnonBil()
+    } // setNonBil()
 
     /**
      * Set the value of [assignee] column.
@@ -495,24 +524,44 @@ abstract class myDataStore implements ActiveRecordInterface
     } // setEstimated()
 
     /**
-     * Set the value of [$spenttime] column.
+     * Set the value of [spenttime] column.
      *
      * @param double $v new value
      * @return $this|\myDataStore The current object (for fluent API support)
      */
-    public function set$spentTime($v)
+    public function setSpentTime($v)
     {
         if ($v !== null) {
             $v = (double) $v;
         }
 
-        if ($this->$spenttime !== $v) {
-            $this->$spenttime = $v;
-            $this->modifiedColumns[myDataStoreTableMap::COL_$SPENTTIME] = true;
+        if ($this->spenttime !== $v) {
+            $this->spenttime = $v;
+            $this->modifiedColumns[myDataStoreTableMap::COL_SPENTTIME] = true;
         }
 
         return $this;
-    } // set$spentTime()
+    } // setSpentTime()
+
+    /**
+     * Sets the value of [data] column to a normalized version of the date/time value specified.
+     *
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
+     *               Empty strings are treated as NULL.
+     * @return $this|\myDataStore The current object (for fluent API support)
+     */
+    public function setData($v)
+    {
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->data !== null || $dt !== null) {
+            if ($this->data === null || $dt === null || $dt->format("Y-m-d H:i:s.u") !== $this->data->format("Y-m-d H:i:s.u")) {
+                $this->data = $dt === null ? null : clone $dt;
+                $this->modifiedColumns[myDataStoreTableMap::COL_DATA] = true;
+            }
+        } // if either are not null
+
+        return $this;
+    } // setData()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -556,7 +605,7 @@ abstract class myDataStore implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : myDataStoreTableMap::translateFieldName('Project', TableMap::TYPE_PHPNAME, $indexType)];
             $this->project = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : myDataStoreTableMap::translateFieldName('nonBil', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : myDataStoreTableMap::translateFieldName('NonBil', TableMap::TYPE_PHPNAME, $indexType)];
             $this->nonbil = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : myDataStoreTableMap::translateFieldName('Assignee', TableMap::TYPE_PHPNAME, $indexType)];
@@ -565,8 +614,14 @@ abstract class myDataStore implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : myDataStoreTableMap::translateFieldName('Estimated', TableMap::TYPE_PHPNAME, $indexType)];
             $this->estimated = (null !== $col) ? (double) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : myDataStoreTableMap::translateFieldName('$spentTime', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->$spenttime = (null !== $col) ? (double) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : myDataStoreTableMap::translateFieldName('SpentTime', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->spenttime = (null !== $col) ? (double) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : myDataStoreTableMap::translateFieldName('Data', TableMap::TYPE_PHPNAME, $indexType)];
+            if ($col === '0000-00-00 00:00:00') {
+                $col = null;
+            }
+            $this->data = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -575,7 +630,7 @@ abstract class myDataStore implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 6; // 6 = myDataStoreTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = myDataStoreTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\myDataStore'), 0, $e);
@@ -787,8 +842,11 @@ abstract class myDataStore implements ActiveRecordInterface
         if ($this->isColumnModified(myDataStoreTableMap::COL_ESTIMATED)) {
             $modifiedColumns[':p' . $index++]  = 'estimated';
         }
-        if ($this->isColumnModified(myDataStoreTableMap::COL_$SPENTTIME)) {
-            $modifiedColumns[':p' . $index++]  = '$spenttime';
+        if ($this->isColumnModified(myDataStoreTableMap::COL_SPENTTIME)) {
+            $modifiedColumns[':p' . $index++]  = 'spenttime';
+        }
+        if ($this->isColumnModified(myDataStoreTableMap::COL_DATA)) {
+            $modifiedColumns[':p' . $index++]  = 'data';
         }
 
         $sql = sprintf(
@@ -816,8 +874,11 @@ abstract class myDataStore implements ActiveRecordInterface
                     case 'estimated':
                         $stmt->bindValue($identifier, $this->estimated, PDO::PARAM_STR);
                         break;
-                    case '$spenttime':
-                        $stmt->bindValue($identifier, $this->$spenttime, PDO::PARAM_STR);
+                    case 'spenttime':
+                        $stmt->bindValue($identifier, $this->spenttime, PDO::PARAM_STR);
+                        break;
+                    case 'data':
+                        $stmt->bindValue($identifier, $this->data ? $this->data->format("Y-m-d H:i:s.u") : null, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -888,7 +949,7 @@ abstract class myDataStore implements ActiveRecordInterface
                 return $this->getProject();
                 break;
             case 2:
-                return $this->getnonBil();
+                return $this->getNonBil();
                 break;
             case 3:
                 return $this->getAssignee();
@@ -897,7 +958,10 @@ abstract class myDataStore implements ActiveRecordInterface
                 return $this->getEstimated();
                 break;
             case 5:
-                return $this->get$spentTime();
+                return $this->getSpentTime();
+                break;
+            case 6:
+                return $this->getData();
                 break;
             default:
                 return null;
@@ -930,11 +994,16 @@ abstract class myDataStore implements ActiveRecordInterface
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getProject(),
-            $keys[2] => $this->getnonBil(),
+            $keys[2] => $this->getNonBil(),
             $keys[3] => $this->getAssignee(),
             $keys[4] => $this->getEstimated(),
-            $keys[5] => $this->get$spentTime(),
+            $keys[5] => $this->getSpentTime(),
+            $keys[6] => $this->getData(),
         );
+        if ($result[$keys[6]] instanceof \DateTime) {
+            $result[$keys[6]] = $result[$keys[6]]->format('c');
+        }
+
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
@@ -980,7 +1049,7 @@ abstract class myDataStore implements ActiveRecordInterface
                 $this->setProject($value);
                 break;
             case 2:
-                $this->setnonBil($value);
+                $this->setNonBil($value);
                 break;
             case 3:
                 $this->setAssignee($value);
@@ -989,7 +1058,10 @@ abstract class myDataStore implements ActiveRecordInterface
                 $this->setEstimated($value);
                 break;
             case 5:
-                $this->set$spentTime($value);
+                $this->setSpentTime($value);
+                break;
+            case 6:
+                $this->setData($value);
                 break;
         } // switch()
 
@@ -1024,7 +1096,7 @@ abstract class myDataStore implements ActiveRecordInterface
             $this->setProject($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setnonBil($arr[$keys[2]]);
+            $this->setNonBil($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->setAssignee($arr[$keys[3]]);
@@ -1033,7 +1105,10 @@ abstract class myDataStore implements ActiveRecordInterface
             $this->setEstimated($arr[$keys[4]]);
         }
         if (array_key_exists($keys[5], $arr)) {
-            $this->set$spentTime($arr[$keys[5]]);
+            $this->setSpentTime($arr[$keys[5]]);
+        }
+        if (array_key_exists($keys[6], $arr)) {
+            $this->setData($arr[$keys[6]]);
         }
     }
 
@@ -1091,8 +1166,11 @@ abstract class myDataStore implements ActiveRecordInterface
         if ($this->isColumnModified(myDataStoreTableMap::COL_ESTIMATED)) {
             $criteria->add(myDataStoreTableMap::COL_ESTIMATED, $this->estimated);
         }
-        if ($this->isColumnModified(myDataStoreTableMap::COL_$SPENTTIME)) {
-            $criteria->add(myDataStoreTableMap::COL_$SPENTTIME, $this->$spenttime);
+        if ($this->isColumnModified(myDataStoreTableMap::COL_SPENTTIME)) {
+            $criteria->add(myDataStoreTableMap::COL_SPENTTIME, $this->spenttime);
+        }
+        if ($this->isColumnModified(myDataStoreTableMap::COL_DATA)) {
+            $criteria->add(myDataStoreTableMap::COL_DATA, $this->data);
         }
 
         return $criteria;
@@ -1181,10 +1259,11 @@ abstract class myDataStore implements ActiveRecordInterface
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setProject($this->getProject());
-        $copyObj->setnonBil($this->getnonBil());
+        $copyObj->setNonBil($this->getNonBil());
         $copyObj->setAssignee($this->getAssignee());
         $copyObj->setEstimated($this->getEstimated());
-        $copyObj->set$spentTime($this->get$spentTime());
+        $copyObj->setSpentTime($this->getSpentTime());
+        $copyObj->setData($this->getData());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1225,7 +1304,8 @@ abstract class myDataStore implements ActiveRecordInterface
         $this->nonbil = null;
         $this->assignee = null;
         $this->estimated = null;
-        $this->$spenttime = null;
+        $this->spenttime = null;
+        $this->data = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
